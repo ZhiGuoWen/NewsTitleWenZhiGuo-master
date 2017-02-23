@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
@@ -18,4 +19,12 @@
     <color name="subscribe_item_selected_stroke_night">#ffbc494d</color>
     <color name="subscribe_item_disabled_bg_night">#ff2b2b2b</color>
     <color name="subscribe_item_disabled_bg">#ffefefef</color>
+
+    <color name="colorPrimary_night">#3b3b3b</color>
+    <color name="colorPrimaryDark_night">#383838</color>
+    <color name="colorAccent_night">#a72b55</color>
+    <color name="textColor">#FF000000</color>
+    <color name="textColor_night">#FFFFFF</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="backgroundColor_night">#3b3b3b</color>
 </resources>

@@ -29,6 +29,7 @@ dependencies {
     compile project(":pulltorefresh")
     compile project(":slidingmenu")
     compile project(":PushSDK")
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:design:25.1.0'

@@ -21,11 +21,14 @@ import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
+import com.wenzhiguo.newstitlewenzhiguo.EvenBus;
 import com.wenzhiguo.newstitlewenzhiguo.R;
 import com.wenzhiguo.newstitlewenzhiguo.fragment.Login.Login_DengLu;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.greenrobot.event.EventBus;
 
 import static com.wenzhiguo.newstitlewenzhiguo.R.id.Voide_picture_qq;
 
@@ -45,6 +48,10 @@ public class Login_fragment extends Fragment implements View.OnClickListener {
     private Tencent mTencent;
     private BaseUiListener mIUiListener;
     private UserInfo mUserInfo;
+    private TextView night_text;
+    private ImageView night_image;
+    int i = 1 ;
+    private boolean flag = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +64,7 @@ public class Login_fragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
+
         //控件list
         lv = (ListView) view.findViewById(R.id.Login_lv);
         lv.setAdapter(new MyAdapter());
@@ -66,18 +74,20 @@ public class Login_fragment extends Fragment implements View.OnClickListener {
         weixin = (ImageView) view.findViewById(R.id.Voide_picture_wexin);
         qq = (ImageView) view.findViewById(R.id.Voide_picture_qq);
         m_text = (TextView) view.findViewById(R.id.m_text);
+        //夜间
         night = (LinearLayout) view.findViewById(R.id.night_bai);
+        night_image = (ImageView) view.findViewById(R.id.night_image);
+        night_text = (TextView) view.findViewById(R.id.night_text);
+        m_text = (TextView) view.findViewById(R.id.m_text);
 
         //监听
         arrow.setOnClickListener(this);
         phone.setOnClickListener(this);
         weixin.setOnClickListener(this);
         qq.setOnClickListener(this);
-
         night.setOnClickListener(this);
-
         //传入参数APPID和全局Context上下文
-        mTencent = Tencent.createInstance(APP_ID,getActivity().getApplicationContext());
+        mTencent = Tencent.createInstance(APP_ID, getActivity().getApplicationContext());
     }
 
     @Override
@@ -95,13 +105,27 @@ public class Login_fragment extends Fragment implements View.OnClickListener {
                 break;
             case Voide_picture_qq:
                 /**通过这句代码，SDK实现了QQ的登录，这个方法有三个参数，第一个参数是context上下文，第二个参数SCOPO 是一个String类型的字符串，表示一些权限
-                官方文档中的说明：应用需要获得哪些API的权限，由“，”分隔。例如：SCOPE = “get_user_info,add_t”；所有权限用“all”
-                第三个参数，是一个事件监听器，IUiListener接口的实例，这里用的是该接口的实现类 */
+                 官方文档中的说明：应用需要获得哪些API的权限，由“，”分隔。例如：SCOPE = “get_user_info,add_t”；所有权限用“all”
+                 第三个参数，是一个事件监听器，IUiListener接口的实例，这里用的是该接口的实现类 */
                 mIUiListener = new BaseUiListener();
                 //all表示获取所有权限
-                mTencent.login(getActivity(),"all", mIUiListener);
+                mTencent.login(getActivity(), "all", mIUiListener);
                 break;
             case R.id.night_bai:
+                //给activity传值
+                EventBus.getDefault().post(new EvenBus(night));
+
+                i++;
+                if (i%2==0){
+                    //重新赋值
+                    night_image.setImageResource(R.drawable.dayicon_profile);
+                    night_text.setText("日间");
+                }else {
+                    //重新赋值
+                    night_image.setImageResource(R.drawable.nighticon_profile);
+                    night_text.setText("夜间");
+                }
+
 
                 break;
         }
@@ -119,25 +143,30 @@ public class Login_fragment extends Fragment implements View.OnClickListener {
                 String accessToken = obj.getString("access_token");
                 String expires = obj.getString("expires_in");
                 mTencent.setOpenId(openID);
-                mTencent.setAccessToken(accessToken,expires);
+                mTencent.setAccessToken(accessToken, expires);
                 QQToken qqToken = mTencent.getQQToken();
-                mUserInfo = new UserInfo(getActivity().getApplicationContext(),qqToken);
+                mUserInfo = new UserInfo(getActivity().getApplicationContext(), qqToken);
                 mUserInfo.getUserInfo(new IUiListener() {
                     @Override
                     public void onComplete(Object response) {
-                        Log.e(TAG,"登录成功"+response.toString());
+                        Log.e(TAG, "登录成功" + response.toString());
 
-
+                        JSONObject jb = (JSONObject) response;
+                        //获取网名
+                        String qq_nickname = jb.optString("nickname");
+                        //获取图片
+                        String qq_imageview = jb.optString("figureurl_qq_2");
+                        m_text.setText(qq_nickname);
                     }
 
                     @Override
                     public void onError(UiError uiError) {
-                        Log.e(TAG,"登录失败"+uiError.toString());
+                        Log.e(TAG, "登录失败" + uiError.toString());
                     }
 
                     @Override
                     public void onCancel() {
-                        Log.e(TAG,"登录取消");
+                        Log.e(TAG, "登录取消");
 
                     }
                 });
@@ -163,8 +192,8 @@ public class Login_fragment extends Fragment implements View.OnClickListener {
     //在调用Login的Activity或者Fragment中重写onActivityResult方法
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == Constants.REQUEST_LOGIN){
-            Tencent.onActivityResultData(requestCode,resultCode,data,mIUiListener);
+        if (requestCode == Constants.REQUEST_LOGIN) {
+            Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

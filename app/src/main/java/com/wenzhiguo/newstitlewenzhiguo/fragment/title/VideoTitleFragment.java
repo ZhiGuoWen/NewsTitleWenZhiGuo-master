@@ -2,7 +2,6 @@ package com.wenzhiguo.newstitlewenzhiguo.fragment.title;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import fm.jiecao.jcvideoplayer_lib.JCMediaManager;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
@@ -183,14 +181,6 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
 
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        //super.onHiddenChanged(hidden);
-        Log.e("myMessage","hidden "+hidden);
-        if (hidden) {
-            JCMediaManager.instance().mediaPlayer.pause();
-        }
-    }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {

@@ -1,6 +1,7 @@
 package com.wenzhiguo.newstitlewenzhiguo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wenzhiguo.newstitlewenzhiguo.Bean.NewsSummary;
+import com.wenzhiguo.newstitlewenzhiguo.ImageViewActivity;
 import com.wenzhiguo.newstitlewenzhiguo.R;
 import com.wenzhiguo.newstitlewenzhiguo.utils.ConvertUtils;
 import com.wenzhiguo.newstitlewenzhiguo.utils.FullGridView;
@@ -66,7 +68,7 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listview, parent, false);
             holder = new ViewHolder(convertView);
@@ -76,7 +78,7 @@ public class MyAdapter extends BaseAdapter {
         }
 
         int width = ScreenUtils.getScreenWidth();
-        int padding = ConvertUtils.dp2px(32);
+        final int padding = ConvertUtils.dp2px(32);
         int spacing = ConvertUtils.dp2px(2);
 
         NewsSummary summary = getItem(position);
@@ -101,9 +103,12 @@ public class MyAdapter extends BaseAdapter {
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //String picture_url =list.get(position).getImgextra().get(position).
+                Intent intent = new Intent(context, ImageViewActivity.class);
+                String imgsrc = getItem(position).getImgextra().get(position).imgsrc;
+                intent.putExtra("imageurl",imgsrc);
                 //图片放大
-                Toast.makeText(context, "点击图片", Toast.LENGTH_SHORT).show();
+                context.startActivity(intent);
+                Toast.makeText(context, imgsrc, Toast.LENGTH_SHORT).show();
             }
         });
 

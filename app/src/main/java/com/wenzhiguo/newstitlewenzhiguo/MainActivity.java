@@ -1,15 +1,19 @@
 package com.wenzhiguo.newstitlewenzhiguo;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -18,7 +22,11 @@ import com.wenzhiguo.newstitlewenzhiguo.fragment.Home_fragment;
 import com.wenzhiguo.newstitlewenzhiguo.fragment.Login_fragment;
 import com.wenzhiguo.newstitlewenzhiguo.fragment.Video_fragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,ThemeManager.OnThemeChangeListener{
     //LinearLayout
     private FrameLayout framelayout;
     private LinearLayout home;
@@ -40,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int[] hong = {R.drawable.b_newhome_tabbar_press, R.drawable.b_newvideo_tabbar_press, R.drawable.b_newcare_tabbar_press, R.drawable.b_newnologin_tabbar_press};
     ImageView[] imageview;
     TextView[] textview;
-
+    private ActionBar supportActionBar;
     //Fragment
     Home_fragment homeFragment;
     Care_fragment careFragment;
@@ -48,11 +56,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Video_fragment videoFragment;
     Fragment fragment;
     private SlidingMenu slidingMenu;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        EventBus.getDefault().register(this);
+        ThemeManager.registerThemeChangeListener(this);
         //找控件
         initView();
         //加载视图
@@ -60,9 +72,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             homeFragment = new Home_fragment();
         }
         setFragment(homeFragment);
+
+    }
+    //接收fragment的传值监听
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void onEventMainThread(EvenBus event) {
+        LinearLayout night = event.getNight();
+        night.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ThemeManager.setThemeMode(ThemeManager.getThemeMode() == ThemeManager.ThemeMode.DAY
+                        ? ThemeManager.ThemeMode.NIGHT : ThemeManager.ThemeMode.DAY);
+            }
+        });
+
     }
 
     private void initView() {
+
+        relativeLayout = (RelativeLayout)findViewById(R.id.activity_main);
+
         framelayout = (FrameLayout) findViewById(R.id.framelayout);
         //LinearLayout
         home = (LinearLayout) findViewById(R.id.home_line);
@@ -158,7 +187,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        ThemeManager.unregisterThemeChangeListener(this);
+    }
+
+    @Override
+    public void onThemeChanged() {
+        initTheme();
+    }
+
+    public void initTheme() {
+        relativeLayout.setBackgroundColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.backgroundColor)));
+        // 设置标题栏颜色
+        if(supportActionBar != null){
+            supportActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.colorPrimary))));
+        }
+        // 设置状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.colorPrimary)));
+        }
     }
 }
