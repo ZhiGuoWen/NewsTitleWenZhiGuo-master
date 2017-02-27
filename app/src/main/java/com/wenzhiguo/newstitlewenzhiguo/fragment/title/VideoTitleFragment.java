@@ -1,12 +1,18 @@
 package com.wenzhiguo.newstitlewenzhiguo.fragment.title;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -46,6 +52,7 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
     private PullToRefreshListView xListView;
     private MyVideoAdapter adapter;
     private DisplayImageOptions options;
+    private PopupWindow mCurPopupWindow;
 
     public VideoTitleFragment() {
         options = new DisplayImageOptions.Builder()
@@ -141,13 +148,14 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder vh;
             if (convertView == null){
                 vh=new ViewHolder();
                 convertView = View.inflate(getActivity(), R.layout.video_item, null);
                 vh.jc = (JCVideoPlayerStandard) convertView.findViewById(R.id.jc_Video);
                 vh.imageView = (ImageView) convertView.findViewById(R.id.image_Video);
+                vh.image = (ImageView) convertView.findViewById(R.id.savour_Video);
                 vh.name = (TextView) convertView.findViewById(R.id.name_Video);
                 vh.count = (TextView) convertView.findViewById(R.id.count_Video);
                 convertView.setTag(vh);
@@ -165,11 +173,24 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
             vh.name.setText(videoList.get(position).getTopicName());
             //次数
             vh.count.setText(videoList.get(position).getPlayCount());
+            //不感兴趣监听
+            vh.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCurPopupWindow = showTipPopupWindow(v, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            videoList.remove(position);
+                            MyVideoAdapter.this.notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
             return convertView;
         }
         class ViewHolder{
             JCVideoPlayerStandard jc;
-            ImageView imageView;
+            ImageView imageView,image;
             TextView name,count;
         }
     }
@@ -178,9 +199,7 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
     public void onPause() {
         super.onPause();
         JCVideoPlayer.releaseAllVideos();
-
     }
-
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
@@ -195,6 +214,94 @@ public class VideoTitleFragment extends Fragment implements PullToRefreshBase.On
         setHttp(index);
     }
 
+    private void autoAdjustArrowPos(PopupWindow popupWindow, View contentView, View anchorView) {
 
+        View upArrow = contentView.findViewById(R.id.up_arrow);
+        View downArrow = contentView.findViewById(R.id.down_arrow);
 
+        //初始化位置数组
+        int pos[] = new int[2];//0：x,1:y
+        contentView.getLocationOnScreen(pos);//数组初始化，获得位置信息
+        Log.d("contentView", "(" + pos[0] + "," + pos[1] + ")");
+        int popLeftPos = pos[0];
+        Log.d("popLeftPos", "(" + popLeftPos + ")");
+
+        anchorView.getLocationOnScreen(pos);
+
+        int anchorLeftPos = pos[0];
+        Log.d("anchorLeftPos", "(" + anchorLeftPos + ")");
+        Log.d("anchorView", "(" + pos[0] + "," + pos[1] + ")");
+        Log.d("anchorView", "(" + anchorView.getWidth() + "," + upArrow.getWidth() + ")");
+
+        //箭头的X标,可以动态调整
+        int arrowLeftMargin = anchorLeftPos - popLeftPos + anchorView.getWidth() / 2 - upArrow.getWidth() / 2;
+
+        Log.d("arrowLeftMargin", "(" + arrowLeftMargin + ")");
+
+        upArrow.setVisibility(popupWindow.isAboveAnchor() ? View.INVISIBLE : View.VISIBLE);
+        downArrow.setVisibility(popupWindow.isAboveAnchor() ? View.VISIBLE : View.INVISIBLE);
+
+        RelativeLayout.LayoutParams upArrowParams = (RelativeLayout.LayoutParams) upArrow.getLayoutParams();
+        upArrowParams.leftMargin = arrowLeftMargin;
+        RelativeLayout.LayoutParams downArrowParams = (RelativeLayout.LayoutParams) downArrow.getLayoutParams();
+        downArrowParams.leftMargin = arrowLeftMargin;
+    }
+
+    public PopupWindow showTipPopupWindow(final View anchorView, final View.OnClickListener onClickListener) {
+
+        final View contentView = LayoutInflater.from(anchorView.getContext()).inflate(R.layout.pop, null);
+
+        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+        // 创建PopupWindow时候指定高宽时showAsDropDown能够自适应
+        // 如果设置为wrap_content,showAsDropDown会认为下面空间一直很充足（我以认为这个Google的bug）
+        // 备注如果PopupWindow里面有ListView,ScrollView时，一定要动态设置PopupWindow的大小
+
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                contentView.getMeasuredWidth(), contentView.getMeasuredHeight(), false);
+
+        contentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                onClickListener.onClick(v);
+            }
+        });
+
+        //调整箭头位置，看的时候注意一下
+        contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // 自动调整箭头的位置
+                autoAdjustArrowPos(popupWindow, contentView, anchorView);
+                contentView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，有些版本就会出现一个问题：无论是点击外部区域还是Back键都无法dismiss弹框
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+
+        // setOutsideTouchable设置生效的前提是setTouchable(true)和setFocusable(false)
+        popupWindow.setOutsideTouchable(true);
+
+        // 设置为true之后，PopupWindow内容区域 才可以响应点击事件
+        popupWindow.setTouchable(true);
+
+        // true时，点击返回键先消失 PopupWindow
+        // 但是设置为true时setOutsideTouchable，setTouchable方法就失效了（点击外部不消失，内容区域也不响应事件）
+        // false时PopupWindow不处理返回键
+        popupWindow.setFocusable(false);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;   // 这里面拦截不到返回键
+            }
+        });
+
+        // 如果希望showAsDropDown方法能够在下面空间不足时自动在anchorView的上面弹出
+        // 必须在创建PopupWindow的时候指定高度，不能用wrap_content
+        popupWindow.showAsDropDown(anchorView);
+
+        return popupWindow;
+    }
 }

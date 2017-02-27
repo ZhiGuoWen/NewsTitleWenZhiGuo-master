@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wenzhiguo.newstitlewenzhiguo.activity.SettingActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/mykeep_part_up"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:id="@+id/ture_back2"
+            android:background="@drawable/all_arrow_unlike"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="设置"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/mykeep_part_up"
+        android:background="@color/backColor"
+        android:id="@+id/dark_line1" />
+    <!--开始设置的布局-->
+
+    <!--清除缓存的布局-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/qchc_line"
+        android:layout_below="@+id/dark_line1"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="清除缓存" />
+
+        <TextView
+            android:id="@+id/setting_huancun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="5.36 MB"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/qchc_line"
+        android:background="@color/backColor"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dark_line2" />
+
+    <!--字体大小的布局-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/ztdx_line"
+        android:layout_below="@+id/dark_line2"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="字体大小" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="小"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ztdx_line"
+        android:background="@color/backColor"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dark_line3" />
+
+    <!--显示列表摘要布局-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/lbzy_line"
+        android:layout_below="@+id/dark_line3"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:text="显示列表摘要" />
+
+        <Switch
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:checked="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/lbzy_line"
+        android:background="@color/backColor"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dark_line4" />
+
+    <!--非WIFI网络流量-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/no_wlll_line"
+        android:layout_below="@+id/dark_line4"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="非WIFI网络流量" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="较省流量(智能下图)"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/no_wlll_line"
+        android:background="@color/backColor"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dark_line5" />
+
+    <!--推送通知-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/tstz_line"
+        android:layout_below="@+id/dark_line5"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:text="推送通知" />
+
+        <Switch
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:checked="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/tstz_line"
+        android:background="@color/backColor"
+        android:id="@+id/dark_line6" />
+
+    <!--离线下载-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/lxxz_line"
+        android:layout_below="@+id/dark_line6"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="离线下载" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:background="@drawable/arrow_all_normal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/lxxz_line"
+        android:background="@color/backColor"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dark_line7" />
+
+    <!--头条封面-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/ttfm_line"
+        android:layout_below="@+id/dark_line7"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="头条封面" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:background="@drawable/arrow_all_normal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ttfm_line"
+        android:background="@color/backColor"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dark_line8" />
+
+    <!--检查版本-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/jcbb_line"
+        android:layout_below="@+id/dark_line8"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="检查版本" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="5.9.5"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/jcbb_line"
+        android:background="@color/backColor"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dark_line9" />
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/end_ok"
+        android:visibility="invisible"
+        android:background="@color/big_dark"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="225dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:id="@+id/ok"
+            android:background="@drawable/toast_keywords_option" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ok"
+            android:layout_centerHorizontal="true"
+            android:text="清除完成"
+            android:textColor="#fff" />
+
+    </RelativeLayout>
+</RelativeLayout>

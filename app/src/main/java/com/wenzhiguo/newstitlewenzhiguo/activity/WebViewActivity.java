@@ -1,13 +1,15 @@
-package com.wenzhiguo.newstitlewenzhiguo;
+package com.wenzhiguo.newstitlewenzhiguo.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class WebViewActivity extends AppCompatActivity {
+import com.wenzhiguo.newstitlewenzhiguo.R;
+import com.wenzhiguo.newstitlewenzhiguo.Signal;
+
+public class WebViewActivity extends Signal {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="180dp"
+    android:layout_height="300dp"
+    android:gravity="center">
+    <!--小-->
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="小"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            android:textColor="@color/dialog_word"
+            android:id="@+id/word_little" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|right">
+
+            <RadioButton
+                android:id="@+id/bu_little"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:checked="true" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--中-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="中"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            android:textColor="@color/little_dark_word"
+            android:id="@+id/word_mid" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|right">
+
+            <RadioButton
+                android:id="@+id/bu_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--大-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="大"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            android:textColor="@color/little_dark_word"
+            android:id="@+id/word_big" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|right">
+
+            <RadioButton
+                android:id="@+id/bu_big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--特大-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="特大"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            android:textColor="@color/little_dark_word"
+            android:id="@+id/word_so_big" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|right">
+
+            <RadioButton
+                android:id="@+id/bu_so_big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="取消"
+        android:textSize="15dp"
+        android:textColor="@color/dialog_word"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:id="@+id/quxiao"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="10dp" />
+</LinearLayout>

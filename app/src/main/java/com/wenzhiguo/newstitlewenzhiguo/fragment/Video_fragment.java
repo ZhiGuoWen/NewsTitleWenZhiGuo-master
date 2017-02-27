@@ -85,8 +85,9 @@ public class Video_fragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         if (hidden) {
             JCMediaManager.instance().mediaPlayer.pause();
-        }else {
-            JCMediaManager.instance().mediaPlayer.start();
         }
+        /*else {
+            JCMediaManager.instance().mediaPlayer.start();
+        }*/
     }
 }

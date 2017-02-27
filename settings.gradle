@@ -1,1 +1,1 @@
-include ':app', ':pulltorefresh', ':pulltorefresh', ':slidingmenu', ':PushSDK'
+include ':app', ':pulltorefresh', ':pulltorefresh', ':slidingmenu', ':PushSDK', ':edittextfirework'

@@ -34,7 +34,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,18 +44,18 @@
         <activity android:name=".fragment.Login.Login_DengLu" />
         <activity android:name=".fragment.Login.Account_Password_DengLu" />
         <activity android:name=".fragment.Login.Found_password" />
-        <activity android:name=".WebViewActivity" />
+        <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".television.Television" />
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="58abae83f29d9868b600177d"></meta-data>
+            android:value="58abae83f29d9868b600177d" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="2740317777b1610eeeff8961e9b55426"></meta-data>
+            android:value="2740317777b1610eeeff8961e9b55426" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="wenzhiguo"></meta-data>
+            android:value="wenzhiguo" />
         <!-- 注册SDKActivity -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -74,7 +74,8 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".ImageViewActivity"></activity>
+        <activity android:name=".activity.ImageViewActivity" />
+        <activity android:name=".activity.SettingActivity"></activity>
     </application>
 
 </manifest>

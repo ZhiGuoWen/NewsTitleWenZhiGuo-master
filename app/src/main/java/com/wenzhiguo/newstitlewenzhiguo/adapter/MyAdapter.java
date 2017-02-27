@@ -15,12 +15,11 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.wenzhiguo.newstitlewenzhiguo.Bean.NewsSummary;
-import com.wenzhiguo.newstitlewenzhiguo.ImageViewActivity;
+import com.wenzhiguo.newstitlewenzhiguo.activity.ImageViewActivity;
 import com.wenzhiguo.newstitlewenzhiguo.R;
 import com.wenzhiguo.newstitlewenzhiguo.utils.ConvertUtils;
 import com.wenzhiguo.newstitlewenzhiguo.utils.FullGridView;
@@ -102,13 +101,12 @@ public class MyAdapter extends BaseAdapter {
         //图片的监听事件
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 Intent intent = new Intent(context, ImageViewActivity.class);
-                String imgsrc = getItem(position).getImgextra().get(position).imgsrc;
-                intent.putExtra("imageurl",imgsrc);
+
+                intent.putExtra("imageurl",getItem(position).getImgextra().get(pos).imgsrc);
                 //图片放大
                 context.startActivity(intent);
-                Toast.makeText(context, imgsrc, Toast.LENGTH_SHORT).show();
             }
         });
 

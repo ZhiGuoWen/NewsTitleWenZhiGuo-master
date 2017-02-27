@@ -1,4 +1,4 @@
-package com.wenzhiguo.newstitlewenzhiguo;
+package com.wenzhiguo.newstitlewenzhiguo.activity;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.wenzhiguo.newstitlewenzhiguo.EvenBus;
+import com.wenzhiguo.newstitlewenzhiguo.R;
+import com.wenzhiguo.newstitlewenzhiguo.ThemeManager;
 import com.wenzhiguo.newstitlewenzhiguo.fragment.Care_fragment;
 import com.wenzhiguo.newstitlewenzhiguo.fragment.Home_fragment;
 import com.wenzhiguo.newstitlewenzhiguo.fragment.Login_fragment;
@@ -26,7 +29,8 @@ import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,ThemeManager.OnThemeChangeListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ThemeManager.OnThemeChangeListener {
+    int i = 1;
     //LinearLayout
     private FrameLayout framelayout;
     private LinearLayout home;
@@ -74,23 +78,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setFragment(homeFragment);
 
     }
+
     //接收fragment的传值监听
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onEventMainThread(EvenBus event) {
         LinearLayout night = event.getNight();
+        final ImageView image = event.getImage();
+        final TextView text = event.getText();
         night.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ThemeManager.setThemeMode(ThemeManager.getThemeMode() == ThemeManager.ThemeMode.DAY
                         ? ThemeManager.ThemeMode.NIGHT : ThemeManager.ThemeMode.DAY);
+                i++;
+                if (i % 2 == 0) {
+                    //重新赋值
+                    image.setImageResource(R.drawable.dayicon_profile);
+                    text.setText("日间");
+                } else {
+                    //重新赋值
+                    image.setImageResource(R.drawable.nighticon_profile);
+                    text.setText("夜间");
+                }
             }
         });
-
     }
 
     private void initView() {
 
-        relativeLayout = (RelativeLayout)findViewById(R.id.activity_main);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
 
         framelayout = (FrameLayout) findViewById(R.id.framelayout);
         //LinearLayout
@@ -123,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         slidingMenu.setShadowDrawable(R.drawable.shadow);
         slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
         slidingMenu.setFadeDegree(0.35f);
-        slidingMenu.attachToActivity(this,SlidingMenu.SLIDING_CONTENT);
+        slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(R.layout.slidingment_layout);
     }
 
@@ -201,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void initTheme() {
         relativeLayout.setBackgroundColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.backgroundColor)));
         // 设置标题栏颜色
-        if(supportActionBar != null){
+        if (supportActionBar != null) {
             supportActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.colorPrimary))));
         }
         // 设置状态栏颜色

@@ -11,9 +11,7 @@ import android.widget.Toast;
 
 import com.wenzhiguo.newstitlewenzhiguo.R;
 
-
 public class Account_Password_DengLu extends AppCompatActivity implements View.OnClickListener {
-
     private TextView yanzheng;
     private TextView found;
     private Button jinru;
@@ -33,6 +31,7 @@ public class Account_Password_DengLu extends AppCompatActivity implements View.O
         jinru = (Button) findViewById(R.id.button_jinru);
         houtui = (ImageView) findViewById(R.id.houtui);
         close = (ImageView) findViewById(R.id.image_close);
+
         yanzheng.setOnClickListener(this);
         found.setOnClickListener(this);
         jinru.setOnClickListener(this);

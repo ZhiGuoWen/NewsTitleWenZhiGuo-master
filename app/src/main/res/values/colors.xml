@@ -27,4 +27,8 @@
     <color name="textColor_night">#FFFFFF</color>
     <color name="backgroundColor">#FFFFFF</color>
     <color name="backgroundColor_night">#3b3b3b</color>
+    <color name="backColor">#e8e8e8</color>
+    <color name="big_dark">#373737</color>
+    <color name="dialog_word">#278bf4</color>
+    <color name="little_dark_word">#b6b6ae</color>
 </resources>

@@ -15,7 +15,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.wenzhiguo.newstitlewenzhiguo.Bean.NewsSummary;
 import com.wenzhiguo.newstitlewenzhiguo.R;
-import com.wenzhiguo.newstitlewenzhiguo.WebViewActivity;
+import com.wenzhiguo.newstitlewenzhiguo.activity.WebViewActivity;
 import com.wenzhiguo.newstitlewenzhiguo.adapter.MyAdapter;
 
 import org.xutils.common.Callback;

@@ -21,32 +21,36 @@
                 android:layout_marginTop="50dp">
 
                 <ImageView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="30dp"
                     android:id="@+id/Voide_picture_shouji"
-                    android:layout_width="0dp"
+                    android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_weight="3"
                     android:src="@drawable/cellphoneicon_login_profile" />
 
                 <ImageView
-                    android:layout_width="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_weight="3"
                     android:src="@drawable/weixin_allshare_normal"
                     android:id="@+id/Voide_picture_wexin" />
 
                 <ImageView
-                    android:layout_width="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_weight="3"
                     android:id="@+id/Voide_picture_qq"
                     android:src="@drawable/qq_allshare_normal" />
 
                 <ImageView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="2dp"
                     android:id="@+id/Voide_picture_jiantou"
-                    android:layout_width="0dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:src="@drawable/arrow_all_normal" />
             </LinearLayout>
 
@@ -108,6 +112,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/line_setting"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
